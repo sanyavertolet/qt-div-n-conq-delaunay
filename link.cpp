@@ -12,7 +12,7 @@ Link::Link(Node *fromNode, Node *toNode) : from(fromNode), to(toNode) {
     setZValue(-1);
 
     setColor(Qt::darkRed);
-    trackNodes();
+    setLine(QLineF(from->pos(), to->pos()));
 }
 
 Node* Link::fromNode() const {
@@ -25,10 +25,6 @@ Node* Link::toNode() const {
 
 void Link::setColor(const QColor &color) {
     setPen(QPen(color, 1.0));
-}
-
-void Link::trackNodes() {
-    setLine(QLineF(from->pos(), to->pos()));
 }
 
 bool Link::operator == (const Link &another) const {

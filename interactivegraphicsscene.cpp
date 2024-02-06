@@ -4,7 +4,7 @@
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 
-InteractiveGraphicsScene::InteractiveGraphicsScene(QObject *parent) : QGraphicsScene(parent) { }
+InteractiveGraphicsScene::InteractiveGraphicsScene(QObject *parent) : QGraphicsScene(parent), nodeCounter(0) { }
 
 void InteractiveGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) {
     QPointF pos = mouseEvent->scenePos();
@@ -23,6 +23,7 @@ void InteractiveGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEv
         for (auto node : this->selectedItems()) {
             removeNode(dynamic_cast<Node*>(node));
         }
+        rebuildLinks();
     }
 
     QGraphicsScene::mousePressEvent(mouseEvent);
@@ -39,6 +40,13 @@ void InteractiveGraphicsScene::addNode(const QPointF &pos) {
 void InteractiveGraphicsScene::removeNode(Node *node) {
     if (node != nullptr) {
         nodes.remove(node);
+        foreach(Link* link, node->links()) {
+            removeItem(link);
+            links.remove(link);
+            link->fromNode()->removeLink(link);
+            link->toNode()->removeLink(link);
+            delete link;
+        }
         removeItem(node);
         delete node;
     }
@@ -62,36 +70,42 @@ void InteractiveGraphicsScene::cleanLinks() {
     }
     foreach (Link *link, links) {
         removeItem(link);
+        delete link;
     }
     links.clear();
 }
 
 void InteractiveGraphicsScene::retriangulateNode(int nodeId) {
     /*
-    auto nodePredicate = [nodeId](Node* node){ return node->id() == nodeId; };
-    auto movedNodeIterator = std::find_if(nodes.begin(), nodes.end(), nodePredicate);
-
-    * if (movedNodeIterator != nodes.end()) {
-    *     auto movedNode = *movedNodeIterator;
-    *     foreach (Link *link, movedNode->links()) {
-    *         removeItem(link);
-    *         links.remove(link);
-    *     }
-    *     movedNode->links().clear();
-    *
-    *     // auto newLinks = triangulator.retriangulateNode(*movedNodeIterator, nodes.values(), links);
-    *     auto newLinks = triangulator.triangulate(nodes);
-    *     foreach (Link *newLink, newLinks) {
-    *         addItem(newLink);
-    *         links.insert(newLink);
-    *     }
-    * }
-    */
+     * Perhaps one day a smart retriangulation will be implemented - using incremental triangulation.
+     *
+     * auto nodePredicate = [nodeId](Node* node){ return node->id() == nodeId; };
+     * auto movedNodeIterator = std::find_if(nodes.begin(), nodes.end(), nodePredicate);
+     *
+     * if (movedNodeIterator != nodes.end()) {
+     *     auto movedNode = *movedNodeIterator;
+     *     foreach (Link *link, movedNode->links()) {
+     *         removeItem(link);
+     *         links.remove(link);
+     *     }
+     *     movedNode->links().clear();
+     *
+     *     // auto newLinks = triangulator.retriangulateNode(*movedNodeIterator, nodes.values(), links);
+     *     auto newLinks = triangulator.triangulate(nodes);
+     *     foreach (Link *newLink, newLinks) {
+     *         addItem(newLink);
+     *         links.insert(newLink);
+     *     }
+     * }
+     */
     rebuildLinks();
 }
 
 InteractiveGraphicsScene::~InteractiveGraphicsScene() {
-    foreach (Node *node, nodes){
+    foreach (Link *link, links) {
+        delete link;
+    }
+    foreach (Node *node, nodes) {
         delete node;
     }
 }

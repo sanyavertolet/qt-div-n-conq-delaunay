@@ -95,9 +95,6 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (change == ItemPositionHasChanged) {
         emit notifier.nodeMoved(nodeIndex);
-        // foreach (Link *link, nodeLinks){
-        //     link->trackNodes();
-        // }
     }
     return QGraphicsItem::itemChange(change, value);
 }
@@ -123,7 +120,4 @@ Node::operator QString() const {
 
 Node::~Node() {
     qDebug() << "Deleted node " << *this;
-    foreach (Link *link, nodeLinks){
-        delete link;
-    }
 }

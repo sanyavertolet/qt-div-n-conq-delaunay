@@ -197,19 +197,27 @@ void Triangulator::sortCandidates(const Nodes &nodes, Nodes &newNodes, const Lin
     }
 }
 
-bool Triangulator::isInCircumcircle(const Node *p0, const Node *p1, const Node *p2, const Node *candidate) {
+bool Triangulator::isInCircumcircle(const Node *p0, const Node *p1, const Node *p2, const Node *candidate) const {
     return Geometry::isInCircumcircle(p0->pos(), p1->pos(), p2->pos(), candidate->pos());
 }
 
 void Triangulator::removeLink(Node *from, Node *to) {
-    // fixMe: need to free memory
-    auto deleted = links.removeIf([&from, &to](Link *link) { return link && *link == Link(from, to); });
+    auto predicate = [&from, &to](Link *link) {
+        if (link && *link == Link(from, to)) {
+            link->fromNode()->links().remove(link);
+            link->toNode()->links().remove(link);
+            delete link;
+            return true;
+        }
+        return false;
+    };
+    auto deleted = links.removeIf(predicate);
     qDebug() << "Deleted " << deleted << " links" << Link(from, to);
 }
 
 Triangulator::Links Triangulator::retriangulateNode(Node *node, const Nodes &nodes, const Links &links) {
-    // todo: delete all links that have node in either `Link::from` or `Link::to.
-    // todo: insert a Node to triangulated `links`
+    // todo: delete all links that have `node` in either `Link::from` or `Link::to.
+    // todo: insert a `node` into triangulated `links`
     return Links();
 }
 

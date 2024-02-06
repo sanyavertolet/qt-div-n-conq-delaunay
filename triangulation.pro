@@ -15,6 +15,7 @@ SOURCES += \
     link.cpp \
     main.cpp \
     node.cpp \
+    nodenotifier.cpp \
     triangulator.cpp \
     widget.cpp
 
@@ -23,6 +24,7 @@ HEADERS += \
     interactivegraphicsscene.h \
     link.h \
     node.h \
+    nodenotifier.h \
     triangulator.h \
     widget.h
 

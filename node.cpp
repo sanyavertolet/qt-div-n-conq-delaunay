@@ -11,7 +11,8 @@
 
 #include <sstream>
 
-Node::Node(const QPointF& pos, int index) :
+Node::Node(const QPointF &pos, int index) :
+    notifier(new NodeNotifier()),
     nodeTextColor(Qt::darkGreen),
     nodeBackgroundColor(Qt::white),
     nodeOutlineColor(Qt::darkBlue),
@@ -20,6 +21,10 @@ Node::Node(const QPointF& pos, int index) :
     setPos(pos);
     setText(QString::number(index));
     qDebug() << "Point added: " << *this;
+}
+
+int Node::id() const {
+    return nodeIndex;
 }
 
 void Node::setText(const QString &text) {
@@ -34,15 +39,19 @@ void Node::setTextColor(const QColor &color) {
 }
 
 void Node::addLink(Link *link) {
-    links.insert(link);
+    nodeLinks.insert(link);
 }
 
 void Node::removeLink(Link *link) {
-    links.remove(link);
+    nodeLinks.remove(link);
 }
 
 void Node::removeAllLinks() {
-    links.clear();
+    nodeLinks.clear();
+}
+
+QSet<Link *>& Node::links() {
+    return nodeLinks;
 }
 
 QRectF Node::outlineRect() const {
@@ -85,9 +94,10 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (change == ItemPositionHasChanged) {
-        foreach (Link *link, links){
-            link->trackNodes();
-        }
+        emit notifier->nodeMoved(nodeIndex);
+        // foreach (Link *link, nodeLinks){
+        //     link->trackNodes();
+        // }
     }
     return QGraphicsItem::itemChange(change, value);
 }
@@ -113,7 +123,7 @@ Node::operator QString() const {
 
 Node::~Node() {
     qDebug() << "Deleted node " << *this;
-    foreach (Link *link, links){
+    foreach (Link *link, nodeLinks){
         delete link;
     }
 }

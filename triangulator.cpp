@@ -25,7 +25,7 @@ Triangulator::Links Triangulator::triangulate(const QSet<Node*> &nodes) {
         return links;
     }
     auto nodeList = nodes.values();
-    std::sort(nodeList.begin(), nodeList.end(), [](Node* a, Node* b) { return a->x() < b->x(); });
+    std::sort(nodeList.begin(), nodeList.end(), [](Node *a, Node *b) { return a->x() < b->x(); });
     doTriangulation(nodeList);
     return links;
 }
@@ -88,7 +88,7 @@ Link* Triangulator::findInitialBaseLink(Nodes &left, Nodes &right) {
     return new Link(leftMin, rightMin);
 }
 
-void Triangulator::makeLink(const Nodes &left, const Nodes &right, const Link* baseLink) {
+void Triangulator::makeLink(const Nodes &left, const Nodes &right, const Link *baseLink) {
     Nodes leftCandidates, rightCandidates;
     sortCandidates(left, leftCandidates, baseLink , true);
     sortCandidates(right, rightCandidates, baseLink , false);
@@ -114,7 +114,7 @@ void Triangulator::makeLink(const Nodes &left, const Nodes &right, const Link* b
         }
     }
 
-    Node* rightCandidate = nullptr;
+    Node *rightCandidate = nullptr;
     for (int i = 0; i < rightCandidates.size(); ++i) {
         if (i + 1 == rightCandidates.size()){
             rightCandidate = rightCandidates[i];
@@ -145,7 +145,7 @@ void Triangulator::makeLink(const Nodes &left, const Nodes &right, const Link* b
 
     bool isRightContainLeft = false;
     bool isLeftContainRight = false;
-    Link* newLink = nullptr;
+    Link *newLink = nullptr;
     if (leftCandidate != nullptr && rightCandidate != nullptr) {
         isRightContainLeft = isInCircumcircle(baseLink->fromNode(), baseLink->toNode(), rightCandidate, leftCandidate);
         isLeftContainRight = isInCircumcircle(baseLink->fromNode(), baseLink->toNode(), leftCandidate, rightCandidate);
@@ -207,9 +207,11 @@ void Triangulator::removeLink(Node *from, Node *to) {
     qDebug() << "Deleted " << deleted << " links" << Link(from, to);
 }
 
-void Triangulator::nodeMoved(Node *node, const QPointF &from, const Nodes &nodes, const Links &links) {
-    // todo: delete all links that have node in either `Link::from` or `Link::to`.
+Triangulator::Links Triangulator::retriangulateNode(Node *node, const Nodes &nodes, const Links &links) {
+    // todo: delete all links that have node in either `Link::from` or `Link::to.
     // todo: insert a Node to triangulated `links`
+    return Links();
 }
+
 
 Triangulator::~Triangulator() {}

@@ -10,7 +10,7 @@
 
 class Link : public QGraphicsLineItem {
 public:
-    Link(Node* from_node, Node* to_node);
+    Link(Node *from_node, Node *to_node);
 
     Node* fromNode() const;
     Node* toNode() const;
@@ -25,8 +25,8 @@ public:
 
     ~Link();
 private:
-    Node* from;
-    Node* to;
+    Node *from;
+    Node *to;
 };
 
 // todo: stop using raw pointers

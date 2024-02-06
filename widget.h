@@ -13,7 +13,7 @@ public:
     ~Widget();
 
 private:
-    QGraphicsScene* scene;
-    QGraphicsView* view;
+    QGraphicsScene *scene;
+    QGraphicsView *view;
 };
 #endif // WIDGET_H

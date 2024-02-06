@@ -4,7 +4,7 @@
 
 #include <sstream>
 
-Link::Link(Node* fromNode, Node* toNode) : from(fromNode), to(toNode) {
+Link::Link(Node *fromNode, Node *toNode) : from(fromNode), to(toNode) {
     from->addLink(this);
     to->addLink(this);
 
@@ -46,8 +46,7 @@ Link::operator QString() const {
 }
 
 Link::~Link() {
+    qDebug() << "Link (" << *this << " was deleted";
     from->removeLink(this);
     to->removeLink(this);
-    setLine(0,0,0,0);
-    qDebug() << "Link (" << *this << " was deleted";
 }

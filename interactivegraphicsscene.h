@@ -20,21 +20,22 @@
 class InteractiveGraphicsScene : public QGraphicsScene {
     Q_OBJECT
 public:
-    explicit InteractiveGraphicsScene(QObject* parent = nullptr);
-
-    // void itemMoved();
+    explicit InteractiveGraphicsScene(QObject *parent = nullptr);
     void rebuildLinks();
 
     ~InteractiveGraphicsScene();
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+
+private slots:
+    void retriangulateNode(int nodeId);
 
 private:
     QSet<Node*> nodes;
     QSet<Link*> links;
 
-    void addNode(const QPointF& pos);
-    void removeNode(Node* node);
+    void addNode(const QPointF &pos);
+    void removeNode(Node *node);
 
     void buildLinks();
     void cleanLinks();

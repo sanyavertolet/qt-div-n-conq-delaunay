@@ -19,6 +19,8 @@ public:
 
     Links triangulate(const QSet<Node*> &nodes);
 
+    Links retriangulateNode(Node *node, const Nodes &nodes, const Links &links);
+
     ~Triangulator();
 
 private:
@@ -29,18 +31,16 @@ private:
 
     void doTriangulation(const Nodes &nodes);
     NodePartition splitNodes(const Nodes &nodes);
-    void connectVertices(Nodes& left, Nodes& right);
+    void connectVertices(Nodes &left, Nodes &right);
 
     Link* findInitialBaseLink(Nodes &left, Nodes &right);
-    void makeLink(const Nodes &left, const Nodes &right, const Link* baseLink);
+    void makeLink(const Nodes &left, const Nodes &right, const Link *baseLink);
 
-    void sortCandidates(const Nodes &nodes, Nodes& newNodes, const Link* baseLink, bool isLeftMesh);
+    void sortCandidates(const Nodes &nodes, Nodes &newNodes, const Link *baseLink, bool isLeftMesh);
 
     bool isInCircumcircle(const Node *p0, const Node *p1, const Node *p2, const Node *candidate);
 
     void removeLink(Node *from, Node *to);
-
-    void nodeMoved(Node *node, const QPointF &from, const Nodes &nodes, const Links &links);
 };
 
 #endif // TRIANGULATOR_H

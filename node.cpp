@@ -12,7 +12,7 @@
 #include <sstream>
 
 Node::Node(const QPointF &pos, int index) :
-    notifier(new NodeNotifier()),
+    notifier(NodeNotifier()),
     nodeTextColor(Qt::darkGreen),
     nodeBackgroundColor(Qt::white),
     nodeOutlineColor(Qt::darkBlue),
@@ -94,7 +94,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (change == ItemPositionHasChanged) {
-        emit notifier->nodeMoved(nodeIndex);
+        emit notifier.nodeMoved(nodeIndex);
         // foreach (Link *link, nodeLinks){
         //     link->trackNodes();
         // }

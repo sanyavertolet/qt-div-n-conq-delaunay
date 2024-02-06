@@ -37,11 +37,11 @@ public:
     QPainterPath shape() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
-    bool operator== (const Node& another) const;
+    bool operator== (const Node &another) const;
     operator std::string() const;
     operator QString() const;
 
-    NodeNotifier *notifier;
+    NodeNotifier notifier;
 
     ~Node();
 protected:

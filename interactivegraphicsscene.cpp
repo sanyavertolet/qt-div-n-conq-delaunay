@@ -31,7 +31,7 @@ void InteractiveGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEv
 void InteractiveGraphicsScene::addNode(const QPointF &pos) {
     auto node = new Node(pos, nodeCounter++);
     nodes.insert(node);
-    connect(node->notifier, SIGNAL(nodeMoved(int)), this, SLOT(retriangulateNode(int)));
+    connect(&node->notifier, SIGNAL(nodeMoved(int)), this, SLOT(retriangulateNode(int)));
     addItem(node);
     clearSelection();
 }

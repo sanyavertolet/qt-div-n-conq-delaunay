@@ -10,23 +10,23 @@ CONFIG += sanitizer sanitize_address
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 SOURCES += \
-    geometry.cpp \
-    interactivegraphicsscene.cpp \
-    link.cpp \
-    main.cpp \
-    node.cpp \
-    nodenotifier.cpp \
-    triangulator.cpp \
-    widget.cpp
+    src/geometry.cpp \
+    src/interactivegraphicsscene.cpp \
+    src/link.cpp \
+    src/main.cpp \
+    src/node.cpp \
+    src/nodenotifier.cpp \
+    src/triangulator.cpp \
+    src/widget.cpp
 
 HEADERS += \
-    geometry.h \
-    interactivegraphicsscene.h \
-    link.h \
-    node.h \
-    nodenotifier.h \
-    triangulator.h \
-    widget.h
+    src/geometry.h \
+    src/interactivegraphicsscene.h \
+    src/link.h \
+    src/node.h \
+    src/nodenotifier.h \
+    src/triangulator.h \
+    src/widget.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

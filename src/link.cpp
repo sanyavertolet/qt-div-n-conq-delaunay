@@ -1,5 +1,7 @@
 #include "link.h"
 
+#include <QDebug>
+#include <QLineF>
 #include <QPen>
 
 #include <sstream>

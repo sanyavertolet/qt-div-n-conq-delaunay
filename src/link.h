@@ -3,8 +3,9 @@
 
 #include "node.h"
 
-#include <QGraphicsLineItem>
 #include <QColor>
+#include <QGraphicsLineItem>
+#include <QString>
 
 #include <string>
 

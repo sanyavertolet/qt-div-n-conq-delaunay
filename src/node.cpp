@@ -2,12 +2,12 @@
 
 #include "link.h"
 
-#include <QFontMetricsF>
-#include <QPainterPath>
-#include <QStyleOptionGraphicsItem>
-#include <QPainter>
-#include <QStyle>
 #include <QApplication>
+#include <QFontMetricsF>
+#include <QPainter>
+#include <QPainterPath>
+#include <QStyle>
+#include <QStyleOptionGraphicsItem>
 
 #include <sstream>
 

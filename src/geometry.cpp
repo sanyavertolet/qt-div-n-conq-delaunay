@@ -1,5 +1,7 @@
 #include "geometry.h"
 
+#include <cmath>
+
 qreal Geometry::ncos(QPointF start, const QPointF &central, QPointF end) {
     start -= central;
     end -= central;

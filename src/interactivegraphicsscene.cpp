@@ -1,7 +1,6 @@
 #include "interactivegraphicsscene.h"
 
 #include <QDebug>
-#include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
 
 InteractiveGraphicsScene::InteractiveGraphicsScene(QObject *parent) : QGraphicsScene(parent), nodeCounter(0) { }

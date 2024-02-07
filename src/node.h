@@ -5,9 +5,18 @@
 
 #include "QtCore/qcoreapplication.h"
 
-#include <QPointF>
+#include <QColor>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsItem>
+#include <QPainterPath>
+#include <QPainter>
+#include <QPointF>
+#include <QRectF>
+#include <QSet>
+#include <QString>
+#include <QStyleOptionGraphicsItem>
+#include <QVariant>
+#include <QWidget>
 
 #include <string>
 
@@ -61,7 +70,6 @@ public:
      * @param text QString text to be set
      */
     void setText(const QString &text);
-
 
     /**
      * @brief setTextColor text color setter
@@ -150,6 +158,7 @@ public:
      * Almost default destructor
      */
     ~Node();
+
 protected:
     /**
      * @brief itemChange callback invoked when node position changed

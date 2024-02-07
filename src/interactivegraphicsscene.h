@@ -1,12 +1,13 @@
 #ifndef INTERACTIVEGRAPHICSSCENE_H
 #define INTERACTIVEGRAPHICSSCENE_H
 
-#include "node.h"
 #include "link.h"
+#include "node.h"
 #include "triangulator.h"
 
-#include <QGraphicsSceneMouseEvent>
 #include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
+#include <QObject>
 #include <QPoint>
 #include <QSet>
 

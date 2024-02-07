@@ -1,7 +1,8 @@
 #include "triangulator.h"
 
+#include "geometry.h"
+
 #include <cmath>
-#include <geometry.h>
 
 Triangulator::Triangulator() { }
 

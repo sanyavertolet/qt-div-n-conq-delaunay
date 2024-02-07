@@ -1,11 +1,11 @@
 #ifndef TRIANGULATOR_H
 #define TRIANGULATOR_H
 
-#include "node.h"
 #include "link.h"
+#include "node.h"
 
-#include <QSet>
 #include <QList>
+#include <QSet>
 
 #include <utility>
 

@@ -2,6 +2,9 @@
 #define GEOMETRY_H
 
 #include <QPointF>
+#include <QtTypes>
+
+#include <numbers>
 
 /**
  * Geometry namespace contains several functions that can be used for geometry stuff.
@@ -38,7 +41,7 @@ namespace Geometry {
     /**
      * @brief pi 3.14159265359 and so on
      */
-    constexpr double pi = M_PI;
+    constexpr double pi = std::numbers::pi;
 }
 
 #endif // GEOMETRY_H

@@ -1,4 +1,5 @@
 #include "widget.h"
+
 #include "interactivegraphicsscene.h"
 
 Widget::Widget(QWidget *parent) : QWidget(parent) {
